@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ambient-challenge"
+version = "0.1.0"
+description = "Ambient Challenge"
+authors = ["Ezequiel Gresia <gresia.ezequiel@gmail.com>"]
+package-mode = false
+
+[tool.ruff.lint]
+ignore = ["B008"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.110.0"
+uvicorn = { extras = ["standard"], version = "^0.27.0" }
+pydantic = "^2.0"
+sqlalchemy = "^2.0"
+psycopg2-binary = "^2.9"
+python-dotenv = "^1.1.0"
+ruff = "^0.11.10"
+requests = "^2.32.3"
+alembic = "^1.15.2"
+pytest = "^8.3.5"
+httpx = "^0.28.1"

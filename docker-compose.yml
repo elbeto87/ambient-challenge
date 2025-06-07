@@ -1,0 +1,17 @@
+services:
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ambient
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+    volumes:
+      - .:/app
+
+networks:
+  app_network:
+    driver: bridge

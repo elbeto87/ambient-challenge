@@ -1,0 +1,25 @@
+target-version = "py312"
+
+line-length = 120
+
+[lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "C4",
+    "ARG",
+    "RUF",
+]
+
+
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "venv",
+]
+
+[lint.isort]
+known-first-party = ["app"]
