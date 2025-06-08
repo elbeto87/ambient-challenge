@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
-from app.database.base import Base, engine
+from app.database.base import Base
+from app.database.database import engine
 from app.routers import dwelling, device, hub
 from app.models import DeviceModel, DwellingModel, HubModel # noqa
 
