@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.models.dwellingmodel import DwellingModel
+from app.models.dwelling import DwellingModel
 from app.schemas.dwelling import DwellingSchema, DwellingUpdateSchema
 
 
