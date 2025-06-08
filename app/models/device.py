@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from enum import Enum as PyEnum
 
 from app.database.base import Base
+from app.models.base import BaseModel
 
 
 class DeviceType(str, PyEnum):
@@ -11,7 +12,7 @@ class DeviceType(str, PyEnum):
     LOCK = "lock"
     THERMOSTAT = "thermostat"
 
-class Device(Base):
+class Device(BaseModel):
     name = Column(String, nullable=False)
     type = Column(Enum(DeviceType), nullable=False)
     state = Column(String, nullable=True)  # Could be 'on', 'off', intensity %, temperature, etc.

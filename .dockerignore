@@ -1,0 +1,39 @@
+# Don't copy the local virtual environment
+.venv/
+
+# Local and sensitive config files
+.env
+*.env
+*.local
+
+# Compiled Python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Log files
+*.log
+
+# OS or editor-specific files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Git repository files
+.git/
+.gitignore
+
+# Test-related files and caches
+*.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.pytest_cache/
+tests/__pycache__/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
