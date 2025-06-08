@@ -1,5 +1,6 @@
+from app.exceptions import DwellingNotFoundException
 from app.repository.dwelling import DwellingRepository
-from app.schemas.dwellingschema import DwellingSchema
+from app.schemas.dwelling import DwellingSchema, DwellingUpdateSchema
 
 
 class DwellingService:
@@ -13,4 +14,16 @@ class DwellingService:
 
     def get_dwelling(self, dwelling_id: int):
         dwelling = self.dwelling_repository.get_by_id(dwelling_id)
+        if not dwelling:
+            raise DwellingNotFoundException(dwelling_id)
+        return DwellingSchema.model_validate(dwelling)
+
+    def get_all_dwellings(self):
+        dwellings = self.dwelling_repository.get_all()
+        return [DwellingSchema.model_validate(dwelling) for dwelling in dwellings] if dwellings else []
+
+    def update_dwelling(self, dwelling_id: int, dwelling_occupied_status: DwellingUpdateSchema):
+        dwelling = self.dwelling_repository.update(dwelling_id, dwelling_occupied_status)
+        if not dwelling:
+            raise DwellingNotFoundException(dwelling_id)
         return DwellingSchema.model_validate(dwelling)

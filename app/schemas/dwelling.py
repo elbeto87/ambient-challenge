@@ -6,3 +6,7 @@ class DwellingSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class DwellingUpdateSchema(BaseModel):
+    occupied: bool

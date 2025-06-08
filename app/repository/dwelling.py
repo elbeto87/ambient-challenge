@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.models.dwellingmodel import DwellingModel
-from app.schemas.dwellingschema import DwellingSchema
+from app.schemas.dwelling import DwellingSchema, DwellingUpdateSchema
 
 
 class DwellingRepository:
@@ -20,3 +20,14 @@ class DwellingRepository:
 
     def get_by_id(self, dwelling_id: int):
         return self.db.query(DwellingModel).filter(DwellingModel.id == dwelling_id).first()
+
+    def get_all(self):
+        return self.db.query(DwellingModel).all()
+
+    def update(self, dwelling_id: int, dwelling_occupied_status: DwellingUpdateSchema):
+        dwelling = self.get_by_id(dwelling_id)
+        if not dwelling:
+            return None
+        dwelling.occupied = dwelling_occupied_status.occupied
+        self.db.commit()
+        return dwelling
