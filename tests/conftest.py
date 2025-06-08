@@ -10,6 +10,8 @@ from app.database.base import Base, get_db
 def engine():
     """Create a new database engine for each test."""
     from app.models.dwelling import DwellingModel # noqa
+    from app.models.hub import HubModel # noqa
+    from app.models.device import DeviceModel # noqa
     engine = create_engine("sqlite:///:memory:", echo=True)
     Base.metadata.create_all(bind=engine)
     yield engine

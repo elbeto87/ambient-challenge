@@ -1,8 +1,11 @@
 from fastapi import FastAPI
-from app.routers import dwelling, device, hub
 
+from app.database.base import Base, engine
+from app.routers import dwelling, device, hub
+from app.models import DeviceModel, DwellingModel, HubModel # noqa
 
 API_PREFIX_VERSION = "/v1"
+Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="Ambient Challenge",
     description="API for managing dwellings, devices, and hubs in the Ambient Challenge project.",

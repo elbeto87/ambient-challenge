@@ -8,8 +8,8 @@ class TestDwelling:
             address="123 Main St",
             occupied=False
         )
-        response = client.post("/dwelling", json=dwelling_to_create.model_dump())
-        breakpoint()
+        response = client.post("/v1/dwellings/create", json=dwelling_to_create.model_dump())
+
         assert response.status_code == 200
         assert response.json() == {"message": "Dwelling created successfully."}
 

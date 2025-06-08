@@ -12,11 +12,6 @@ from app.service.dwelling import DwellingService
 router = APIRouter(tags=["Dwelling"])
 
 
-@router.get("/")
-def get_all_dwellings():
-    return {"message": "This is a placeholder for getting all dwellings."}
-
-
 @router.post("/create")
 def create_dwelling(dwelling_to_add: DwellingSchema, session: Session = Depends(get_db)):
     dwelling_repository = DwellingRepository(session)

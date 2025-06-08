@@ -11,12 +11,12 @@ class DeviceType(str, PyEnum):
     LOCK = "lock"
     THERMOSTAT = "thermostat"
 
-class Device(BaseModel):
+class DeviceModel(BaseModel):
     __tablename__ = 'devices'
 
     name = Column(String, nullable=False)
     type = Column(Enum(DeviceType), nullable=False)
     state = Column(String, nullable=True)  # Could be 'on', 'off', intensity %, temperature, etc.
     pin_code = Column(String, nullable=True)  # Only for lock
-    hub_id = Column(ForeignKey("hub.id"), nullable=True)
-    hub = relationship("Hub", back_populates="devices")
+    hub_id = Column(ForeignKey("hubs.id"), nullable=True)
+    hub = relationship("HubModel", back_populates="devices")

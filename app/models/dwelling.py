@@ -9,4 +9,4 @@ class DwellingModel(BaseModel):
 
     address = Column(String, nullable=False)
     occupied = Column(Boolean, default=False)
-    hubs = relationship("Hub", back_populates="dwelling")
+    hubs = relationship("HubModel", back_populates="dwelling")
