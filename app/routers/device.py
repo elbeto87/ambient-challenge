@@ -1,11 +1,9 @@
-from typing import List
-
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.database.database import get_db
 from app.repository.device import DeviceRepository
-from app.schemas.device import DeviceCreateSchema
+from app.schemas.device import DeviceCreateSchema, DeviceStateSchema, DeviceUpdateStateSchema
 from app.service.device import DeviceService
 
 router = APIRouter(tags=["Device"])
@@ -25,6 +23,12 @@ def get_all_devices(session: Session = Depends(get_db)):
     device_repository = DeviceRepository(session)
     return DeviceService(device_repository).get_all_devices()
 
+@router.get("/{device_id}")
+def get_device_state(device_id: str, session: Session = Depends(get_db)):
+    device_repository = DeviceRepository(session)
+    return DeviceService(device_repository).get_device_state(device_id)
 
-# TODO: Get status
-# TODO: Modify status
+@router.put("/{device_id}")
+def modify_device_state(device_id: str, device_state: DeviceUpdateStateSchema, session: Session = Depends(get_db)):
+    device_repository = DeviceRepository(session)
+    return DeviceService(device_repository).modify_device_state(device_id, device_state)

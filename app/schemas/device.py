@@ -10,18 +10,37 @@ class DeviceType(str, Enum):
     LOCK = "lock"
     THERMOSTAT = "thermostat"
 
+
 class DeviceCreateSchema(BaseModel):
     name: str
     type: DeviceType
-    pin_code: Optional[str] = None  # For locks only
 
-class DeviceUpdateSchema(BaseModel):
+    class Config:
+        from_attributes = True
+
+
+class DeviceUpdateStateSchema(BaseModel):
     state: Optional[str]
-    pin_code: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+
+class DeviceStateSchema(BaseModel):
+    id: UUID
+    name: str
+    type: DeviceType
+    state: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
 
 class DeviceSchema(BaseSchema):
     name: str
     type: DeviceType
     state: Optional[str]
-    pin_code: Optional[str]
     hub_id: Optional[UUID]
+
+    class Config:
+        from_attributes = True

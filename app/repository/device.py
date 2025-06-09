@@ -26,3 +26,9 @@ class DeviceRepository:
 
     def get_all_devices(self) -> list[DeviceModel]:
         return self.db.query(DeviceModel).all()
+
+    def update_state(self, device_id: str, new_state: any) -> DeviceModel:
+        device = self.get_device_by_id(device_id)
+        device.state = new_state
+        self.db.commit()
+        return device
