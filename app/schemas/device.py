@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Any
 from pydantic import BaseModel
 from uuid import UUID
 from .base import BaseSchema
@@ -20,7 +20,7 @@ class DeviceCreateSchema(BaseModel):
 
 
 class DeviceUpdateStateSchema(BaseModel):
-    state: Optional[str]
+    state: Any
 
     class Config:
         from_attributes = True

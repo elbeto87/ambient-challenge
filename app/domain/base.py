@@ -1,9 +1,5 @@
 from abc import ABC, abstractmethod
 
-from app.domain.dimmer import DimmerDevice
-from app.domain.lock import LockDevice
-from app.domain.switch import SwitchDevice
-from app.domain.thermostat import ThermostatDevice
 from app.models import DeviceModel
 
 
@@ -14,6 +10,10 @@ class Device(ABC):
 
     @classmethod
     def from_orm(cls, device_model: DeviceModel):
+        from app.domain.dimmer import DimmerDevice
+        from app.domain.lock import LockDevice
+        from app.domain.switch import SwitchDevice
+        from app.domain.thermostat import ThermostatDevice
         device_type = device_model.type
         device_type_map = {
             "switch": SwitchDevice,

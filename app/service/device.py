@@ -1,9 +1,9 @@
 from typing import List
 
 from app.domain.base import Device
-from app.exceptions import DeviceAlreadyPairedException, DeviceInUseException, DeviceNotFoundException
+from app.exceptions import DeviceInUseException, DeviceNotFoundException
 from app.repository.device import DeviceRepository
-from app.schemas.device import DeviceCreateSchema, DeviceSchema, DeviceStatusSchema, DeviceStateSchema
+from app.schemas.device import DeviceCreateSchema, DeviceSchema, DeviceStateSchema, DeviceUpdateStateSchema
 
 
 class DeviceService:
@@ -35,10 +35,10 @@ class DeviceService:
             raise DeviceNotFoundException(device_id)
         return DeviceStateSchema.model_validate(device).state
 
-    def modify_device_state(self, device_id: str, device_state: DeviceStatusSchema) -> DeviceStateSchema:
+    def modify_device_state(self, device_id: str, device_state: DeviceUpdateStateSchema) -> DeviceStateSchema:
         device_model = self.device_repository.get_device_by_id(device_id)
         if not device_model:
             raise DeviceNotFoundException(device_id)
         device = Device.from_orm(device_model)
-        new_state = device.update_state(device_state)
+        new_state = device.update_state(device_state.state)
         return self.device_repository.update_state(device_id, new_state)

@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from sqlalchemy.orm import Session
 
 from app.models import DeviceModel
@@ -16,7 +18,7 @@ class DeviceRepository:
         return device_model
 
     def get_device_by_id(self, device_id: str) -> DeviceModel:
-        return self.db.query(DeviceModel).filter(DeviceModel.id == device_id).first()
+        return self.db.query(DeviceModel).filter(DeviceModel.id == UUID(device_id)).first()
 
     def delete(self, device_id: str) -> DeviceModel:
         device = self.get_device_by_id(device_id)
