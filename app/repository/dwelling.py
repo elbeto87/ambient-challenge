@@ -1,5 +1,8 @@
+from uuid import UUID
+
 from sqlalchemy.orm import Session
 
+from app.models import HubModel
 from app.models.dwelling import DwellingModel
 from app.schemas.dwelling import DwellingCreateSchema, DwellingUpdateSchema
 
@@ -19,7 +22,7 @@ class DwellingRepository:
         return dwelling_model
 
     def get_by_id(self, dwelling_id: str):
-        return self.db.query(DwellingModel).filter(DwellingModel.id == dwelling_id).first()
+        return self.db.query(DwellingModel).filter(DwellingModel.id == UUID(dwelling_id)).first()
 
     def get_all(self):
         return self.db.query(DwellingModel).all()
@@ -29,5 +32,10 @@ class DwellingRepository:
         if not dwelling:
             return None
         dwelling.occupied = dwelling_occupied_status.occupied
+        self.db.commit()
+        return dwelling
+
+    def add_new_hub(self, dwelling: DwellingModel, hub_to_install: HubModel):
+        dwelling.hubs.append(hub_to_install)
         self.db.commit()
         return dwelling

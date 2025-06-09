@@ -1,11 +1,31 @@
+from typing import Optional
+
 from pydantic import BaseModel
-from .base import BaseSchema
 from uuid import UUID
 
-class HubCreate(BaseModel):
+class HubCreateSchema(BaseModel):
     name: str
-    dwelling_id: UUID
 
-class HubOut(BaseSchema):
+    class Config:
+        from_attributes = True
+
+class HubSchema(BaseModel):
+    id: UUID
     name: str
-    dwelling_id: UUID
+    dwelling_id: Optional[UUID]
+    devices: list[UUID] = []
+
+    class Config:
+        from_attributes = True
+
+class DeviceToDeleteSchema(BaseModel):
+    device_id: UUID
+
+    class Config:
+        from_attributes = True
+
+class DeviceToPairSchema(BaseModel):
+    device_id: UUID
+
+    class Config:
+        from_attributes = True
