@@ -16,5 +16,14 @@ class DeviceAlreadyPairedException(Exception):
         super().__init__(f"Device with id {device_id} is already paired with a hub")
 
 
-def DeviceNotFound(device_id: str):
-    return Exception(f"Device with id {device_id} not found")
+class DeviceNotFoundException(Exception):
+
+    def __init__(self, device_id: str):
+        super().__init__(f"Device with id {device_id} not found")
+
+
+class DeviceInUseException(Exception):
+
+    def __init__(self, device_id: str):
+        super().__init__(f"Device with id {device_id} is currently in use and cannot be deleted")
+

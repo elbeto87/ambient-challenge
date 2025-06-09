@@ -19,7 +19,7 @@ class DeviceUpdateSchema(BaseModel):
     state: Optional[str]
     pin_code: Optional[str]
 
-class DeviceOutSchema(BaseSchema):
+class DeviceSchema(BaseSchema):
     name: str
     type: DeviceType
     state: Optional[str]

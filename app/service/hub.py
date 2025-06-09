@@ -1,4 +1,4 @@
-from app.exceptions import HubNotFoundException, DeviceAlreadyPairedException, DeviceNotFound
+from app.exceptions import HubNotFoundException, DeviceAlreadyPairedException, DeviceNotFoundException
 from app.repository.hub import HubRepository
 from app.schemas.hub import HubCreateSchema, HubSchema
 
@@ -23,7 +23,7 @@ class HubService:
         if not hub:
             raise HubNotFoundException(hub_id)
         if device_to_delete not in hub.devices:
-            raise DeviceNotFound(device_to_delete)
+            raise DeviceNotFoundException(device_to_delete)
         return self.hub_repository.delete_device_from_hub(hub, device_to_delete)
 
     def pair_device(self, hub_id: str, device_to_pair: str):
@@ -40,7 +40,7 @@ class HubService:
         if not hub:
             raise HubNotFoundException(hub_id)
         if device_id not in hub.devices:
-            raise DeviceNotFound(device_id)
+            raise DeviceNotFoundException(device_id)
         return hub.devices[device_id].status
 
     def get_all_hubs(self):

@@ -14,3 +14,15 @@ class DeviceRepository:
         self.db.add(device_model)
         self.db.commit()
         return device_model
+
+    def get_device_by_id(self, device_id: str) -> DeviceModel:
+        return self.db.query(DeviceModel).filter(DeviceModel.id == device_id).first()
+
+    def delete(self, device_id: str) -> DeviceModel:
+        device = self.get_device_by_id(device_id)
+        self.db.delete(device)
+        self.db.commit()
+        return device
+
+    def get_all_devices(self) -> list[DeviceModel]:
+        return self.db.query(DeviceModel).all()
