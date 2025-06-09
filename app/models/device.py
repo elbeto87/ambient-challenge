@@ -16,7 +16,7 @@ class DeviceModel(BaseModel):
 
     name = Column(String, nullable=False)
     type = Column(Enum(DeviceType), nullable=False)
-    state = Column(String, nullable=True)  # Could be 'on', 'off', intensity %, temperature, etc.
-    pin_code = Column(String, nullable=True)  # Only for lock
+    state = Column(String, nullable=True)
+    pin_code = Column(String, nullable=True)
     hub_id = Column(ForeignKey("hubs.id"), nullable=True)
     hub = relationship("HubModel", back_populates="devices")

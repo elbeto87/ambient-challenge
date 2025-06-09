@@ -10,16 +10,16 @@ class DeviceType(str, Enum):
     LOCK = "lock"
     THERMOSTAT = "thermostat"
 
-class DeviceCreate(BaseModel):
+class DeviceCreateSchema(BaseModel):
     name: str
     type: DeviceType
     pin_code: Optional[str] = None  # For locks only
 
-class DeviceUpdate(BaseModel):
+class DeviceUpdateSchema(BaseModel):
     state: Optional[str]
     pin_code: Optional[str]
 
-class DeviceOut(BaseSchema):
+class DeviceOutSchema(BaseSchema):
     name: str
     type: DeviceType
     state: Optional[str]
