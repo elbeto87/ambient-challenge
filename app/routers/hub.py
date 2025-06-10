@@ -5,13 +5,14 @@ from sqlalchemy.orm import Session
 
 from app.database.database import get_db
 from app.repository.hub import HubRepository
-from app.schemas.hub import HubCreateSchema, DeviceToDeleteSchema, DeviceToPairSchema
+from app.schemas.dwelling import DwellingSchema
+from app.schemas.hub import HubCreateSchema, DeviceToDeleteSchema, DeviceToPairSchema, HubSchema
 from app.service.hub import HubService
 from logger import logger
 
 router = APIRouter(tags=["Hub"])
 
-@router.post("/")
+@router.post("/", response_model=HubSchema, status_code=HTTPStatus.CREATED)
 def create_hub(hub_to_create: HubCreateSchema, session: Session = Depends(get_db)):
     logger.info(f"Creating new hub: {hub_to_create}")
     hub_repository = HubRepository(session)

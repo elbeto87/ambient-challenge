@@ -10,7 +10,7 @@ class HubService:
 
     def create_hub(self, hub_to_add: HubCreateSchema):
         hub = self.hub_repository.create(hub_to_add)
-        return HubCreateSchema.from_orm(hub)
+        return HubSchema.from_orm(hub)
 
     def get_devices(self, hub_id: str):
         hub = self.hub_repository.get_by_id(hub_id)

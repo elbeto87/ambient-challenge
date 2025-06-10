@@ -15,7 +15,7 @@ from logger import logger
 router = APIRouter(tags=["Dwelling"])
 
 
-@router.post("/create", response_model=DwellingSchema)
+@router.post("/create", response_model=DwellingSchema, status_code=HTTPStatus.CREATED)
 def create_dwelling(dwelling_to_add: DwellingCreateSchema, session: Session = Depends(get_db)):
     logger.info(f"Creating new dwelling: {dwelling_to_add.address}")
     dwelling_repository = DwellingRepository(session)

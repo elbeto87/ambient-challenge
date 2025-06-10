@@ -1,15 +1,17 @@
+from http import HTTPStatus
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.database.database import get_db
 from app.repository.device import DeviceRepository
-from app.schemas.device import DeviceCreateSchema, DeviceStateSchema, DeviceUpdateStateSchema
+from app.schemas.device import DeviceCreateSchema, DeviceStateSchema, DeviceUpdateStateSchema, DeviceSchema
 from app.service.device import DeviceService
 from logger import logger
 
 router = APIRouter(tags=["Device"])
 
-@router.post("/")
+@router.post("/", response_model=DeviceSchema, status_code=HTTPStatus.CREATED)
 def create_new_device(device_to_create: DeviceCreateSchema, session: Session = Depends(get_db)):
     logger.info(f"Creating new device: {device_to_create.name}")
     device_repository = DeviceRepository(session)

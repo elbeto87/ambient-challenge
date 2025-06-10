@@ -15,7 +15,8 @@ class DeviceService:
         device_model = self.device_repository.create(device_to_create)
         default_state = Device.from_orm(device_model).get_default_state()
         self.device_repository.update_state(device_model.id, default_state)
-        return device_model
+        breakpoint()
+        return DeviceSchema.from_orm(device_model)
 
     def delete_device(self, device_id: str):
         device = self.device_repository.get_device_by_id(device_id)
