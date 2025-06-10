@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -7,16 +8,16 @@ from app.database.database import get_db
 from app.exceptions import DwellingNotFoundException
 from app.repository.dwelling import DwellingRepository
 from app.repository.hub import HubRepository
-from app.schemas.dwelling import DwellingCreateSchema, DwellingUpdateSchema, InstallHubSchema
+from app.schemas.dwelling import DwellingCreateSchema, DwellingUpdateSchema, InstallHubSchema, DwellingSchema
 from app.service.dwelling import DwellingService
 from logger import logger
 
 router = APIRouter(tags=["Dwelling"])
 
 
-@router.post("/create")
+@router.post("/create", response_model=DwellingSchema)
 def create_dwelling(dwelling_to_add: DwellingCreateSchema, session: Session = Depends(get_db)):
-    logger.info(f"Creating new dwelling: {dwelling_to_add.name}")
+    logger.info(f"Creating new dwelling: {dwelling_to_add.address}")
     dwelling_repository = DwellingRepository(session)
     hub_repository = HubRepository(session)
     return DwellingService(dwelling_repository, hub_repository).create_dwelling(dwelling_to_add)
@@ -45,7 +46,7 @@ def get_dwelling(dwelling_id: str, session: Session = Depends(get_db)):
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail=str(e))
 
 
-@router.get("/")
+@router.get("/", response_model=List[DwellingSchema])
 def get_all_dwellings(session: Session = Depends(get_db)):
     logger.info("Fetching all dwellings")
     dwelling_repository = DwellingRepository(session)

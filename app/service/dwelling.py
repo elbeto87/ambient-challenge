@@ -12,9 +12,9 @@ class DwellingService:
         self.dwelling_repository = dwelling_repository
         self.hub_repository = hub_repository
 
-    def create_dwelling(self, dwelling_to_add: DwellingCreateSchema) -> DwellingCreateSchema:
+    def create_dwelling(self, dwelling_to_add: DwellingCreateSchema) -> DwellingSchema:
         dwelling = self.dwelling_repository.create(dwelling_to_add)
-        return DwellingCreateSchema.from_orm(dwelling)
+        return DwellingSchema.from_orm(dwelling)
 
     def get_dwelling(self, dwelling_id: str) -> DwellingSchema:
         dwelling = self.dwelling_repository.get_by_id(dwelling_id)

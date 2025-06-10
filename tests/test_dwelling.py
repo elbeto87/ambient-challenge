@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from app.schemas.dwelling import DwellingCreateSchema
+from app.schemas.dwelling import DwellingCreateSchema, DwellingSchema
 
 
 class TestDwelling:
@@ -11,9 +11,11 @@ class TestDwelling:
             occupied=False
         )
         response = client.post("/v1/dwellings/create", json=dwelling_to_create.model_dump())
+        response_json = response.json()
 
         assert response.status_code == HTTPStatus.OK
-        assert response.json() == dwelling_to_create.model_dump()
+        assert response_json["address"] == dwelling_to_create.address
+        assert response_json["occupied"] == dwelling_to_create.occupied
 
     def test_get_all_dwellings(self, client):
         response = client.get("/v1/dwellings")

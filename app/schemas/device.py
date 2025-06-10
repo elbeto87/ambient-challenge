@@ -1,4 +1,4 @@
-from typing import Optional, Any
+from typing import Optional, Any, Dict
 from pydantic import BaseModel
 from uuid import UUID
 from .base import BaseSchema
@@ -30,7 +30,7 @@ class DeviceStateSchema(BaseModel):
     id: UUID
     name: str
     type: DeviceType
-    state: Optional[str] = None
+    state: Optional[Dict[str, Any]]
 
     class Config:
         from_attributes = True
@@ -39,7 +39,7 @@ class DeviceStateSchema(BaseModel):
 class DeviceSchema(BaseSchema):
     name: str
     type: DeviceType
-    state: Optional[str]
+    state: Optional[Dict[str, Any]]
     hub_id: Optional[UUID]
 
     class Config:

@@ -1,7 +1,10 @@
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel
 from uuid import UUID
+
+from app.schemas.device import DeviceSchema
+
 
 class HubCreateSchema(BaseModel):
     name: str
@@ -13,7 +16,7 @@ class HubSchema(BaseModel):
     id: UUID
     name: str
     dwelling_id: Optional[UUID]
-    devices: list[UUID] = []
+    devices: List[DeviceSchema] = []
 
     class Config:
         from_attributes = True
