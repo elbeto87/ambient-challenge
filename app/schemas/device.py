@@ -1,5 +1,6 @@
 from typing import Optional, Any, Dict
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
+import json
 from uuid import UUID
 from .base import BaseSchema
 from enum import Enum
@@ -41,6 +42,16 @@ class DeviceSchema(BaseSchema):
     type: DeviceType
     state: Optional[Dict[str, Any]]
     hub_id: Optional[UUID]
+
+    @field_validator("state", mode="before")
+    @classmethod
+    def parse_state(cls, v):
+        if isinstance(v, str):
+            try:
+                return json.loads(v)
+            except json.JSONDecodeError:
+                return {}
+        return v
 
     class Config:
         from_attributes = True
